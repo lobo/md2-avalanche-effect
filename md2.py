@@ -1,36 +1,18 @@
 from Crypto.Hash import MD2
-import itertools, random, struct, math
+import random, struct, math
 
-# Generate 1000 elements
-# Convert them to their binary equivalent
-
-'''
-sample_vector_1000_elems = []
-charset = "abcdefghijklmnopqrstuvwxyz0123456789"
-for i in itertools.product(charset, repeat=6): 
-    strMD2 = MD2.new("".join(i)).hexdigest()
-    strMD2_to_binary = ''.join(format(x, 'b') for x in bytearray(strMD2))
-    print strMD2
-    print strMD2_to_binary
-    sample_vector_1000_elems.append(strMD2_to_binary)
-    if len(sample_vector_1000_elems) == 1000:
-        break
-'''
-
-def hamdist(s1, s2):
+# ------------------------ Useful functions ----------------------- 
+def hamming_distance(s1, s2):
     """Return the Hamming distance between equal-length sequences"""
     if len(s1) != len(s2):
         raise ValueError("Undefined for sequences of unequal length")
     return sum(ch1 != ch2 for ch1, ch2 in zip(s1, s2))
 
-def decimal_a_binario(num):
+def decimal_to_binary(num):
     ''' Funcion que convierte un decimal en su valor binario '''
-    if num == 0:
-        return ""
-    else:
-        return decimal_a_binario(num//2) + str(num % 2) 
+    return num == 0 ? "" : decimal_to_binary(num//2) + str(num % 2) 
 
-def binario_a_decimal(binary):
+def binary_to_decimal(binary):
     ''' funcion que convierte un binario en su valor decimal '''
     decimal = 0
     cont = 0
@@ -43,7 +25,9 @@ def binario_a_decimal(binary):
         cont +=1
     return decimal
 
-def test():
+
+# ------------------------ Main Program -----------------------
+def main_program():
     '''
     a_str = "just a test string"
     
@@ -59,32 +43,32 @@ def test():
     SalHam = 0
     SalData = 1
     SalValores = 0
-    cant    = 10000          # cantidad a estudiar
-    lenc    = 64            # mimimo de seguridad segun FIPS 180-4 SHS 08/2015
-    inicio  = 2**5          # inicio indifente mientras cumpla longitud
-    fin     = inicio + cant     # fin de la muestra segun la cantidad a estudiar y su inicio
-    sal     = ""
-    for i in range(inicio,fin):
+    iterations = 10000          
+    minimum_num = 64 # FIPS 180-4 SHS 08/2015
+    beginning = 2**5          
+    end = beginning + iterations 
+    output = ""
+    for i in range(beginning,end):
         if SalData == 1 : print 50*'-'
-        dato0   = decimal_a_binario(i-1)
-        dato1   = decimal_a_binario(i)
-        if SalData == 1 : print "dato0: "+str(dato0)
-        if SalData == 1 : print "dato1: "+str(dato1)
-        valor0  = str((lenc-len(dato0))*"0"+dato0)
-        valor1  = str((lenc-len(dato1))*"0"+dato1)
-        if SalData == 1 : print "valor0: "+str(valor0)
-        if SalData == 1 : print "valor1: "+str(valor1) 
+        data_1   = decimal_to_binary(i-1)
+        data_2   = decimal_to_binary(i)
+        if SalData == 1 : print "data_1: "+str(data_1)
+        if SalData == 1 : print "data_2: "+str(data_2)
+        value_1  = str((minimum_num-len(data_1))*"0"+data_1)
+        value_2  = str((minimum_num-len(data_2))*"0"+data_2)
+        if SalData == 1 : print "value_1: "+str(value_1)
+        if SalData == 1 : print "value_2: "+str(value_2) 
 
-        str0 = MD2.new(valor0).hexdigest()
-        str1 = MD2.new(valor1).hexdigest()
+        str0 = MD2.new(value_1).hexdigest()
+        str1 = MD2.new(value_2).hexdigest()
         if SalData == 1 : print "str0: "+str(str0)
         if SalData == 1 : print "str1: "+str(str1)
-        if SalData == 1 : print "Distancia de Hamming: "+str(hamdist(str0,str1))
-        sal  +=str(hamdist(str0,str1))+";"
-        cant -= 1
-    if SalHam == 1 : print sal
+        if SalData == 1 : print "Distancia de Hamming: "+str(hamming_distance(str0,str1))
+        output  +=str(hamming_distance(str0,str1))+";"
+        iterations -= 1
+    if SalHam == 1 : print output
 
-    SalHamNum = map(int, sal.split(';')[:-1])
+    SalHamNum = map(int, output.split(';')[:-1])
     if SalValores == 1 : print 50*"-"
     
     #promedio
@@ -129,7 +113,7 @@ def test():
     if SalValores == 1 : print 'Desviacion estandar:',desEstand
 
 
-test()
+main_program()
 
 
 
