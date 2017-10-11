@@ -13,18 +13,6 @@ def decimal_to_binary(num):
         return "" 
     return decimal_to_binary(num//2) + str(num % 2) 
 
-def binary_to_decimal(binary):
-    decimal = 0
-    cont = 0
-    print "binary: " + (binary)
-    return 0
-    binary_number = str(binary)[::-1];
-    print binary_number
-    for digit in binary_number:
-        decimal += (2**int(cont))*int(digit)
-        cont +=1
-    return decimal
-
 # ------------------------ Main Program -----------------------
 def main_program():
     iterations = 10000          
@@ -51,47 +39,47 @@ def main_program():
         output += str(hamming_distance(md2_hash_value_1,md2_hash_value_2))+";"
         iterations -= 1
 
-    SalHamNum = map(int, output.split(';')[:-1])
+    hamilton_num = map(int, output.split(';')[:-1])
     print 50*"-"
 
 
     # ------------------------ Stats -----------------------
     
     # Promedio
-    media = sum(SalHamNum)/float(len(SalHamNum))
+    media = sum(hamilton_num)/float(len(hamilton_num))
     print "Media: " + str(media)
 
     # Moda                                                                                   
     iterations = 0                                                                         
-    for i in SalHamNum:                                                                              
-       appearances = SalHamNum.count(i)                                                             
+    for i in hamilton_num:                                                                              
+       appearances = hamilton_num.count(i)                                                             
        if appearances > iterations:                                                       
            iterations = appearances                                                       
                                                                                          
     modas = []                                                                               
-    for i in SalHamNum:                                                                              
-        appearances = SalHamNum.count(i)                                                             
+    for i in hamilton_num:                                                                              
+        appearances = hamilton_num.count(i)                                                             
         if appearances == iterations and i not in modas:                                   
             modas.append(i)                                                                  
                                                                                          
     print "Moda: ", modas                                                                     
                                                                                          
     # Mediana                                                                                
-    SalHamNum.sort()                                                                                                                                                                 
+    hamilton_num.sort()                                                                                                                                                                 
                                                                                          
-    if len(SalHamNum) % 2 == 0:                                                                      
-        n = len(SalHamNum)                                                                           
-        mediana = (SalHamNum[n/2-1]+ SalHamNum[n/2] )/2                                                      
+    if len(hamilton_num) % 2 == 0:                                                                      
+        n = len(hamilton_num)                                                                           
+        mediana = (hamilton_num[n/2-1]+ hamilton_num[n/2] )/2                                                      
     else:                                                                                    
-        mediana =SalHamNum[len(SalHamNum)/2]                                                                 
+        mediana =hamilton_num[len(hamilton_num)/2]                                                                 
                                                                                          
     print 'Mediana: ',mediana 
 
     # Varianza
     suma = 0
-    for i in SalHamNum:
+    for i in hamilton_num:
         suma += (media - float(i))**2
-    varianza = float(suma)/len(SalHamNum) 
+    varianza = float(suma)/len(hamilton_num) 
     print 'Varianza: ',varianza
 
     # Desviacion estandar
@@ -100,12 +88,3 @@ def main_program():
 
 
 main_program()
-
-
-
-
-
-
-
-
-
