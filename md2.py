@@ -27,18 +27,6 @@ def binary_to_decimal(binary):
 
 # ------------------------ Main Program -----------------------
 def main_program():
-    '''
-    a_str = "just a test string"
-    
-    assert 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' == sha256().hexdigest()
-    assert 'd7b553c6f09ac85d142415f857c5310f3bbbe7cdd787cce4b985acedd585266f' == sha256(a_str).hexdigest()
-    assert '8113ebf33c97daa9998762aacafe750c7cefc2b2f173c90c59663a57fe626f21' == sha256(a_str*7).hexdigest()
-    
-    s = sha256(a_str)
-    s.update(a_str)
-    assert '03d9963e05a094593190b6fc794cb1a3e1ac7d7883f0b5855268afeccc70d461' == s.hexdigest()
-    '''
-
     iterations = 10000          
     minimum_num = 64 # FIPS 180-4 SHS 08/2015
     beginning = 2**5          
